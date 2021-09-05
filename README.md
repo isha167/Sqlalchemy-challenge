@@ -132,7 +132,6 @@ Now that you have completed your initial analysis, design a Flask API based on t
 
   * Use the peak-to-peak (TMAX-TMIN) value as the y error bar (YERR).
 
-    ![temperature](Images/temperature.png)
 
 ### Daily Rainfall Average
 
@@ -158,8 +157,6 @@ Now that you have completed your initial analysis, design a Flask API based on t
 * Load the list of daily normals into a Pandas DataFrame and set the index equal to the date.
 
 * Use Pandas to plot an area plot (`stacked=False`) for the daily normals.
-
-  ![daily-normals](Images/daily-normals.png)
 
 * Close out your session.
 
