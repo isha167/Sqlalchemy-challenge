@@ -33,12 +33,15 @@ app = Flask(__name__)
 def welcome():
     """List all available api routes."""
     return (
-        f"Available Routes:<br/>"
+        f"For the routes with input date follow the format and enter your date</br>"
+        f"Available Routes are:<br/>"
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"api/v1.0/<start>/<end><br/>"
+        f"Enter a start date for the following</br>"
+        f"/api/v1.0/yyyy-mm-dd<br/>"
+        f"Enter a start date and end date for the following</br>"
+        f"/api/v1.0/yyyy-mm-dd/yyyy-mm-dd<br/>"
 
     )
 
@@ -90,8 +93,8 @@ def tobs():
      #Query the dates and temperature observations of the most active station for the last year of data.
      #find the most active station
     most_active = session.query(Measurement.station,func.count(Measurement.id)).group_by(Measurement.station).all()
-    for active in most_active:
-      most_active_stn = (max(most_active))
+    
+    most_active_stn = (most_active[6])
     #find the last year date in data
     results_date = session.query(Measurement.date).all()
     last_date = results_date[-1]
@@ -106,11 +109,12 @@ def tobs():
     tobs_list = []
     for result in active_temps:
         line = {}
-        line["Date"] = result[1]
-        line["Temperature"] = int(result[2])
+        line["Date"] = result[0]
+        line["Temperature"] = int(result[1])
         tobs_list.append(line)
-
+   
     return jsonify(tobs_list)
+         
 
 @app.route("/api/v1.0/<start>") 
 # Calculate `TMIN`, `TAVG`, and `TMAX` for all dates greater than and equal to the start date
